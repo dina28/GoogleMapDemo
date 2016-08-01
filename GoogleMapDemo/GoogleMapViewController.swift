@@ -8,8 +8,7 @@
 
 import UIKit
 
-class GoogleMapViewController: UIViewController, CLLocationManagerDelegate
-{
+class GoogleMapViewController: UIViewController, CLLocationManagerDelegate {
     var vwGMap = GMSMapView()
     var locationManager = CLLocationManager()
     let marker = GMSMarker()
@@ -18,7 +17,6 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
 
@@ -37,10 +35,10 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate
         let camera: GMSCameraPosition = GMSCameraPosition.cameraWithLatitude(22.300000, longitude: 70.783300, zoom: 10.0)
 
         vwGMap = GMSMapView.mapWithFrame(self.view.frame, camera: camera)
-
-        vwGMap.camera = camera
-
-        // Add GMSMapView to current view
+        marker.position = camera.target
+        // marker.snippet = "Hello World"
+        marker.appearAnimation = kGMSMarkerAnimationPop
+        marker.map = vwGMap
         self.view = vwGMap
     }
 
@@ -61,6 +59,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate
         vwGMap.camera = GMSCameraPosition.cameraWithTarget(newLocation!.coordinate, zoom: 15.0)
         vwGMap.settings.myLocationButton = true
         self.view = self.vwGMap
+
+        // Create marker and set location
 
         marker.position = CLLocationCoordinate2DMake(newLocation!.coordinate.latitude, newLocation!.coordinate.longitude)
 
