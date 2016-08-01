@@ -1,2 +1,1 @@
-# GoogleMapDemo
-Google Map SDK
+
